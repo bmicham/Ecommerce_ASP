@@ -30,56 +30,5 @@
 </section>
 
 @section scripts{ 
-    <script>
-        const baseURL = "https://fakestoreapi.com/products";
-        const newProduct = document.getElementById("newProducts");
-        const searchBar = document.getElementById("searchBar");
-        const btnContainer = document.querySelector("#btn-continaer");
-        let products = [];
-
-
-        //SearchBar
-        searchBar.addEventListener("keyup", function (e) {
-            const searchString = e.target.value.toLowerCase();
-            const filterProducts = products.filter(product => {
-                return product.category.toLowerCase().includes(searchString) ||
-                    product.title.toLowerCase().includes(searchString);
-            })
-            displayProducts(filterProducts);
-        })
-
-
-        //load Products
-        const loadProducts = async() => {
-            try {
-                const response = await fetch(baseURL);
-                products = await response.json();
-                displayProducts(products);
-                if (!response.ok) throw new Error(`$(products.message) ${response.status}`);
-
-            } catch(err) {
-                console.log(err);
-            }
-        }
-
-        const displayProducts = (products) => {
-            const htmlString = products.map((product) => {
-                return `
-                    <div class="col-md-4" >
-                        <div class="card">
-                            <img class="card-img-top" width="40" src="${product.image}" alt="card image cap">
-                            <div class="card-body">
-                            <h5 class="card-title">${product.category}</h5>
-                            <a href="#" class="btn-primary">Go to Products</a>
-                            </div>
-                        </div>
-                    </div>`;
-            }).join('');
-            newProduct.innerHTML = htmlString;
-        }
-        loadProducts();
-
-    </script>
-
-
+    <script src="~/js/externalApi.js"></script>
 }
